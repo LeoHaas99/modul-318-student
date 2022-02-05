@@ -23,19 +23,19 @@
             return this.GetObject<Stations>(uri);
         }
 
-        public StationBoardRoot GetStationBoard(string station, string id)
+        public StationBoardRoot GetStationBoard(string station/*, string id*/)
         {
             if (string.IsNullOrEmpty(station))
             {
                 throw new ArgumentNullException(nameof(station));
             }
 
-            if (string.IsNullOrEmpty(id))
+            /*if (string.IsNullOrEmpty(id))
             {
                 throw new ArgumentNullException(nameof(id));
-            }
+            }*/
 
-            var uri = new Uri($"{WebApiHost}stationboard?station={station}&id={id}");
+            var uri = new Uri($"{WebApiHost}stationboard?station={station}"/*&id={id}"*/);
             return this.GetObject<StationBoardRoot>(uri);
         }
 

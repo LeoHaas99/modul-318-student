@@ -7,5 +7,8 @@ namespace SwissTransport.Models
     {
         [JsonProperty("departure")]
         public DateTime Departure { get; set; }
+
+        [JsonProperty("platform")]
+        public string Platform { get; set; }
     }
 }

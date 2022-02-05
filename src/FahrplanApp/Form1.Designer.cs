@@ -30,6 +30,8 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.lbTo = new System.Windows.Forms.ListBox();
+            this.lbFrom = new System.Windows.Forms.ListBox();
             this.labelConnection = new System.Windows.Forms.Label();
             this.datePicker = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,15 +48,16 @@
             this.txtFrom = new System.Windows.Forms.TextBox();
             this.btnConnections = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.lbStationboard = new System.Windows.Forms.ListBox();
             this.labelStationboard = new System.Windows.Forms.Label();
             this.btnStationboard = new System.Windows.Forms.Button();
             this.txtStationboard = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.dgvStationboard = new System.Windows.Forms.DataGridView();
+            this.nameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.platformColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.endstationColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departureColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.arrivalColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -80,6 +83,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.lbTo);
+            this.tabPage1.Controls.Add(this.lbFrom);
             this.tabPage1.Controls.Add(this.labelConnection);
             this.tabPage1.Controls.Add(this.datePicker);
             this.tabPage1.Controls.Add(this.label4);
@@ -99,6 +104,24 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Verbindungen";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // lbTo
+            // 
+            this.lbTo.FormattingEnabled = true;
+            this.lbTo.ItemHeight = 21;
+            this.lbTo.Location = new System.Drawing.Point(419, 112);
+            this.lbTo.Name = "lbTo";
+            this.lbTo.Size = new System.Drawing.Size(146, 172);
+            this.lbTo.TabIndex = 13;
+            // 
+            // lbFrom
+            // 
+            this.lbFrom.FormattingEnabled = true;
+            this.lbFrom.ItemHeight = 21;
+            this.lbFrom.Location = new System.Drawing.Point(85, 112);
+            this.lbFrom.Name = "lbFrom";
+            this.lbFrom.Size = new System.Drawing.Size(147, 172);
+            this.lbFrom.TabIndex = 12;
             // 
             // labelConnection
             // 
@@ -241,6 +264,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lbStationboard);
             this.tabPage2.Controls.Add(this.labelStationboard);
             this.tabPage2.Controls.Add(this.btnStationboard);
             this.tabPage2.Controls.Add(this.txtStationboard);
@@ -253,6 +277,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Abfahrtstafel";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // lbStationboard
+            // 
+            this.lbStationboard.FormattingEnabled = true;
+            this.lbStationboard.ItemHeight = 21;
+            this.lbStationboard.Location = new System.Drawing.Point(272, 144);
+            this.lbStationboard.Name = "lbStationboard";
+            this.lbStationboard.Size = new System.Drawing.Size(141, 151);
+            this.lbStationboard.TabIndex = 5;
             // 
             // labelStationboard
             // 
@@ -269,9 +302,9 @@
             // btnStationboard
             // 
             this.btnStationboard.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnStationboard.Location = new System.Drawing.Point(427, 105);
+            this.btnStationboard.Location = new System.Drawing.Point(425, 97);
             this.btnStationboard.Name = "btnStationboard";
-            this.btnStationboard.Size = new System.Drawing.Size(128, 54);
+            this.btnStationboard.Size = new System.Drawing.Size(141, 71);
             this.btnStationboard.TabIndex = 3;
             this.btnStationboard.Text = "Anzeigetafel suchen";
             this.btnStationboard.UseVisualStyleBackColor = true;
@@ -280,9 +313,9 @@
             // txtStationboard
             // 
             this.txtStationboard.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtStationboard.Location = new System.Drawing.Point(266, 119);
+            this.txtStationboard.Location = new System.Drawing.Point(272, 118);
             this.txtStationboard.Name = "txtStationboard";
-            this.txtStationboard.Size = new System.Drawing.Size(133, 29);
+            this.txtStationboard.Size = new System.Drawing.Size(141, 29);
             this.txtStationboard.TabIndex = 2;
             // 
             // label5
@@ -301,15 +334,23 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dgvStationboard.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvStationboard.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameColumn,
             this.platformColumnSB,
             this.endstationColumnSB,
-            this.departureColumnSB,
-            this.arrivalColumnSB});
+            this.departureColumnSB});
             this.dgvStationboard.Location = new System.Drawing.Point(-4, 386);
             this.dgvStationboard.Name = "dgvStationboard";
             this.dgvStationboard.RowTemplate.Height = 25;
             this.dgvStationboard.Size = new System.Drawing.Size(783, 389);
             this.dgvStationboard.TabIndex = 0;
+            // 
+            // nameColumn
+            // 
+            this.nameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameColumn.FillWeight = 150F;
+            this.nameColumn.HeaderText = "Name";
+            this.nameColumn.Name = "nameColumn";
+            this.nameColumn.ReadOnly = true;
             // 
             // platformColumnSB
             // 
@@ -334,14 +375,6 @@
             this.departureColumnSB.Name = "departureColumnSB";
             this.departureColumnSB.ReadOnly = true;
             // 
-            // arrivalColumnSB
-            // 
-            this.arrivalColumnSB.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.arrivalColumnSB.FillWeight = 150F;
-            this.arrivalColumnSB.HeaderText = "Ankunft";
-            this.arrivalColumnSB.Name = "arrivalColumnSB";
-            this.arrivalColumnSB.ReadOnly = true;
-            // 
             // tabPage3
             // 
             this.tabPage3.Location = new System.Drawing.Point(4, 30);
@@ -349,7 +382,7 @@
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(775, 771);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Stationen/Karte";
+            this.tabPage3.Text = "Karte";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Form1
@@ -389,19 +422,22 @@
         private Label label4;
         private Label label3;
         private DateTimePicker datePicker;
-        private DataGridViewTextBoxColumn dateOfDepartureColumn;
-        private DataGridViewTextBoxColumn platformColumn;
-        private DataGridViewTextBoxColumn departureColumn;
-        private DataGridViewTextBoxColumn arrivalColumn;
         private DataGridView dgvStationboard;
         private Label label5;
-        private DataGridViewTextBoxColumn platformColumnSB;
-        private DataGridViewTextBoxColumn endstationColumnSB;
-        private DataGridViewTextBoxColumn departureColumnSB;
-        private DataGridViewTextBoxColumn arrivalColumnSB;
         private Label labelConnection;
         private TextBox txtStationboard;
         private Button btnStationboard;
         private Label labelStationboard;
+        private DataGridViewTextBoxColumn dateOfDepartureColumn;
+        private DataGridViewTextBoxColumn platformColumn;
+        private DataGridViewTextBoxColumn departureColumn;
+        private DataGridViewTextBoxColumn arrivalColumn;
+        private DataGridViewTextBoxColumn nameColumn;
+        private DataGridViewTextBoxColumn platformColumnSB;
+        private DataGridViewTextBoxColumn endstationColumnSB;
+        private DataGridViewTextBoxColumn departureColumnSB;
+        private ListBox lbTo;
+        private ListBox lbFrom;
+        private ListBox lbStationboard;
     }
 }
