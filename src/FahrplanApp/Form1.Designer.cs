@@ -30,6 +30,7 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabConnections = new System.Windows.Forms.TabPage();
+            this.btnShare = new System.Windows.Forms.Button();
             this.lbTo = new System.Windows.Forms.ListBox();
             this.lbFrom = new System.Windows.Forms.ListBox();
             this.labelConnection = new System.Windows.Forms.Label();
@@ -59,6 +60,7 @@
             this.endstationColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departureColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabMap = new System.Windows.Forms.TabPage();
+            this.lbPlace = new System.Windows.Forms.ListBox();
             this.btnCloseMap = new System.Windows.Forms.Button();
             this.gmap = new GMap.NET.WindowsForms.GMapControl();
             this.btnCloseBy = new System.Windows.Forms.Button();
@@ -68,6 +70,7 @@
             this.dgvMap = new System.Windows.Forms.DataGridView();
             this.nameColumnMap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
+            this.tabMail = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
             this.tabConnections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
@@ -85,6 +88,7 @@
             this.tabControl.Controls.Add(this.tabConnections);
             this.tabControl.Controls.Add(this.tabStationboard);
             this.tabControl.Controls.Add(this.tabMap);
+            this.tabControl.Controls.Add(this.tabMail);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
@@ -94,6 +98,7 @@
             // 
             // tabConnections
             // 
+            this.tabConnections.Controls.Add(this.btnShare);
             this.tabConnections.Controls.Add(this.lbTo);
             this.tabConnections.Controls.Add(this.lbFrom);
             this.tabConnections.Controls.Add(this.labelConnection);
@@ -116,6 +121,17 @@
             this.tabConnections.Text = "Verbindungen";
             this.tabConnections.UseVisualStyleBackColor = true;
             this.tabConnections.Click += new System.EventHandler(this.closeLists);
+            // 
+            // btnShare
+            // 
+            this.btnShare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnShare.Location = new System.Drawing.Point(600, 309);
+            this.btnShare.Name = "btnShare";
+            this.btnShare.Size = new System.Drawing.Size(141, 71);
+            this.btnShare.TabIndex = 14;
+            this.btnShare.Text = "Ausgewählte Verbindung teilen";
+            this.btnShare.UseVisualStyleBackColor = true;
+            this.btnShare.Click += new System.EventHandler(this.btnShare_Click);
             // 
             // lbTo
             // 
@@ -401,6 +417,7 @@
             // 
             // tabMap
             // 
+            this.tabMap.Controls.Add(this.lbPlace);
             this.tabMap.Controls.Add(this.btnCloseMap);
             this.tabMap.Controls.Add(this.gmap);
             this.tabMap.Controls.Add(this.btnCloseBy);
@@ -416,6 +433,17 @@
             this.tabMap.TabIndex = 2;
             this.tabMap.Text = "Karte";
             this.tabMap.UseVisualStyleBackColor = true;
+            this.tabMap.Click += new System.EventHandler(this.closeLists);
+            // 
+            // lbPlace
+            // 
+            this.lbPlace.FormattingEnabled = true;
+            this.lbPlace.ItemHeight = 21;
+            this.lbPlace.Location = new System.Drawing.Point(249, 147);
+            this.lbPlace.Name = "lbPlace";
+            this.lbPlace.Size = new System.Drawing.Size(259, 172);
+            this.lbPlace.TabIndex = 8;
+            this.lbPlace.Click += new System.EventHandler(this.lbPlace_Click);
             // 
             // btnCloseMap
             // 
@@ -494,6 +522,7 @@
             this.txtPlace.Name = "txtPlace";
             this.txtPlace.Size = new System.Drawing.Size(259, 29);
             this.txtPlace.TabIndex = 2;
+            this.txtPlace.TextChanged += new System.EventHandler(this.txtPlace_TextChanged);
             // 
             // dgvMap
             // 
@@ -524,6 +553,16 @@
             this.label6.Size = new System.Drawing.Size(36, 21);
             this.label6.TabIndex = 0;
             this.label6.Text = "Ort:";
+            // 
+            // tabMail
+            // 
+            this.tabMail.Location = new System.Drawing.Point(4, 30);
+            this.tabMail.Name = "tabMail";
+            this.tabMail.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMail.Size = new System.Drawing.Size(775, 771);
+            this.tabMail.TabIndex = 3;
+            this.tabMail.Text = "Verbindung teilen";
+            this.tabMail.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -591,5 +630,8 @@
         private Button btnCloseBy;
         private GMap.NET.WindowsForms.GMapControl gmap;
         private Button btnCloseMap;
+        private ListBox lbPlace;
+        private Button btnShare;
+        private TabPage tabMail;
     }
 }

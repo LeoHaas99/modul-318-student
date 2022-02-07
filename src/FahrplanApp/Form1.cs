@@ -5,6 +5,8 @@ using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
+using System.Web;
+using System.Net.Mail;
 
 namespace FahrplanApp
 {
@@ -26,9 +28,11 @@ namespace FahrplanApp
             lbFrom.Hide();
             lbTo.Hide();
             lbStationboard.Hide();
+            lbPlace.Hide();
             gmap.Hide();
             btnCloseMap.Hide();
             labelPlace.Text = "";
+            btnShare.Hide();
         }
 
         
@@ -48,6 +52,7 @@ namespace FahrplanApp
                     dgvConnections.Rows.Clear();
                     closeLists(sender, e);
                     labelConnection.Text = "Verbindungen \nvon " + fromStation + " nach " + toStation + " \nam " + Convert.ToDateTime(date).ToString("D") + ", " + Convert.ToDateTime(time).ToString("HH:mm");
+                    btnShare.Show();
                     if (connections.ConnectionList.Count > 0)
                     {
                         string tempDate = "";
@@ -195,6 +200,7 @@ namespace FahrplanApp
             lbFrom.Hide();
             lbTo.Hide();
             lbStationboard.Hide();
+            lbPlace.Hide();
         }
 
         private void lbFrom_Click(object sender, EventArgs e)
@@ -267,6 +273,7 @@ namespace FahrplanApp
 
         private async void btnCloseBy_Click(object sender, EventArgs e)
         {
+            closeLists(sender, e);
             Geoposition pos = await GetLocation();
             if (pos != null)
             {
@@ -287,12 +294,15 @@ namespace FahrplanApp
                     markers.Markers.Add(marker);
                     foreach (Station station in stations.StationList)
                     {
-                        double latitudeStation = (double)station.Coordinate.XCoordinate;
-                        double longitudeStation = (double)station.Coordinate.YCoordinate;
-                        GMapMarker markerStation = new GMarkerGoogle(
-                        new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
-                        GMarkerGoogleType.red_pushpin);
-                        markers.Markers.Add(markerStation);
+                        if(station.Coordinate.XCoordinate != null && station.Coordinate.YCoordinate != null)
+                        {
+                            double latitudeStation = (double)station.Coordinate.XCoordinate;
+                            double longitudeStation = (double)station.Coordinate.YCoordinate;
+                            GMapMarker markerStation = new GMarkerGoogle(
+                            new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
+                            GMarkerGoogleType.red_pushpin);
+                            markers.Markers.Add(markerStation);
+                        }
                     }
                     gmap.Overlays.Clear();
                     gmap.Overlays.Add(markers);
@@ -328,15 +338,12 @@ namespace FahrplanApp
                     return null;
             }
                 return null;
-                    
-            
-            
-
         }
 
         private void btnPlace_Click(object sender, EventArgs e)
         {
             gmap.Hide();
+            closeLists(sender, e);
             string place = txtPlace.Text.Trim();
             try
             {
@@ -358,45 +365,90 @@ namespace FahrplanApp
             catch
             {
                 MessageBox.Show("Es ist ein Fehler aufgetreten.");
-                
             }
         }
 
         private void dgvMap_Click(object sender, EventArgs e)
         {
-            int rowindex = dgvMap.CurrentCell.RowIndex;
-            int columnindex = dgvMap.CurrentCell.ColumnIndex;
-
-            string place = dgvMap.Rows[rowindex].Cells[columnindex].Value.ToString();
+            int rowIndex = dgvMap.CurrentCell.RowIndex;
+            int columnIndex = dgvMap.CurrentCell.ColumnIndex;
+            string place = dgvMap.Rows[rowIndex].Cells[columnIndex].Value.ToString();
             labelPlace.Text = place + " auf der Karte";
             Stations stations = transport.GetStations(place);
             foreach (Station station in stations.StationList)
             {
-                double latitudeStation = (double)station.Coordinate.XCoordinate;
-                double longitudeStation = (double)station.Coordinate.YCoordinate;
-                gmap.MapProvider = BingHybridMapProvider.Instance;
-                GMaps.Instance.Mode = AccessMode.ServerOnly;
-                gmap.ShowCenter = false;
-                gmap.Position = new GMap.NET.PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation));
-                GMapOverlay markers = new GMapOverlay("markers");
-                GMapMarker markerStation = new GMarkerGoogle(
-                new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
-                GMarkerGoogleType.red_pushpin);
-                markers.Markers.Add(markerStation);
-                gmap.Overlays.Clear();
-                gmap.Overlays.Add(markers);
-                btnCloseMap.Show();
-                gmap.Show();
-                break;
+                if(station.Coordinate.XCoordinate != null && station.Coordinate.YCoordinate != null)
+                {
+                    double latitudeStation = (double)station.Coordinate.XCoordinate;
+                    double longitudeStation = (double)station.Coordinate.YCoordinate;
+                    gmap.MapProvider = BingHybridMapProvider.Instance;
+                    GMaps.Instance.Mode = AccessMode.ServerOnly;
+                    gmap.ShowCenter = false;
+                    gmap.Position = new GMap.NET.PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation));
+                    GMapOverlay markers = new GMapOverlay("markers");
+                    GMapMarker markerStation = new GMarkerGoogle(
+                    new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
+                    GMarkerGoogleType.red_pushpin);
+                    markers.Markers.Add(markerStation);
+                    gmap.Overlays.Clear();
+                    gmap.Overlays.Add(markers);
+                    btnCloseMap.Show();
+                    gmap.Show();
+                    break;
+                }
+                else
+                {
+                    MessageBox.Show("Dieser Eintrag kann nicht auf der Karte angezeigt werden");
+                    break;
+                }
             }
-            
-
         }
 
         private void btnCloseMap_Click(object sender, EventArgs e)
         {
             gmap.Hide();
             btnCloseMap.Hide();
+        }
+
+        private void txtPlace_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPlace.Text.Length > 2)
+            {
+                string stationName = txtPlace.Text.Trim();
+                try
+                {
+                    lbPlace.Items.Clear();
+                    Stations stations = transport.GetStations(stationName);
+                    if (stations.StationList.Count > 0)
+                    {
+                        foreach (Station station in stations.StationList)
+                        {
+                            lbPlace.Items.Add(station.Name);
+                        }
+                        lbPlace.Show();
+                    }
+                }
+                catch
+                {
+                    lbPlace.Hide();
+                }
+            }
+        }
+
+        private void lbPlace_Click(object sender, EventArgs e)
+        {
+            txtPlace.Text = lbPlace.SelectedItem.ToString();
+            lbPlace.Hide();
+        }
+
+        private void btnShare_Click(object sender, EventArgs e)
+        {
+            string dateOfDeparture = dgvConnections.CurrentRow.Cells[0].Value.ToString();
+            string platform = dgvConnections.CurrentRow.Cells[1].Value.ToString();
+            string departure = dgvConnections.CurrentRow.Cells[2].Value.ToString();
+            string arrival = dgvConnections.CurrentRow.Cells[3].Value.ToString();
+            tabControl.SelectedIndex = 2;
+            tabMail.Hide();
         }
     }
 }
