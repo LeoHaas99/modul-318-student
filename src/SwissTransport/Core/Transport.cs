@@ -23,6 +23,22 @@
             return this.GetObject<Stations>(uri);
         }
 
+        public Stations GetStationsCloseBy(string latitude, string longitude)
+        {
+            if (string.IsNullOrEmpty(latitude))
+            {
+                throw new ArgumentNullException(nameof(latitude));
+            }
+
+            if (string.IsNullOrEmpty(longitude))
+            {
+                throw new ArgumentNullException(nameof(longitude));
+            }
+
+            var uri = new Uri($"{WebApiHost}locations?x={latitude}&y={longitude}&type=station");
+            return this.GetObject<Stations>(uri);
+        }
+
         public StationBoardRoot GetStationBoard(string station/*, string id*/)
         {
             if (string.IsNullOrEmpty(station))

@@ -1,5 +1,10 @@
 using SwissTransport.Core;
 using SwissTransport.Models;
+using Windows.Devices.Geolocation;
+using GMap.NET;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
+using GMap.NET.MapProviders;
 
 namespace FahrplanApp
 {
@@ -21,11 +26,16 @@ namespace FahrplanApp
             lbFrom.Hide();
             lbTo.Hide();
             lbStationboard.Hide();
+            gmap.Hide();
+            btnCloseMap.Hide();
+            labelPlace.Text = "";
         }
+
+        
 
         private void btnConnections_Click(object sender, EventArgs e)
         {
-            
+           
             string fromStation = txtFrom.Text.Trim();
             string toStation = txtTo.Text.Trim();
             string date = datePicker.Value.ToString("yyyy-MM-dd");
@@ -141,15 +151,14 @@ namespace FahrplanApp
                 {
                     lbFrom.Items.Clear();
                     Stations stations = transport.GetStations(stationName);
-                    foreach(Station station in stations.StationList)
+                    if(stations.StationList.Count > 0)
                     {
-                        lbFrom.Items.Add(station.Name);
-                    }
-                    if(lbFrom.Items.Count > 0)
-                    {
+                        foreach (Station station in stations.StationList)
+                        {
+                            lbFrom.Items.Add(station.Name);
+                        }
                         lbFrom.Show();
                     }
-
                 }
                 catch
                 {
@@ -203,15 +212,14 @@ namespace FahrplanApp
                 {
                     lbTo.Items.Clear();
                     Stations stations = transport.GetStations(stationName);
-                    foreach (Station station in stations.StationList)
+                    if(stations.StationList.Count > 0)
                     {
-                        lbTo.Items.Add(station.Name);
-                    }
-                    if (lbTo.Items.Count > 0)
-                    {
+                        foreach (Station station in stations.StationList)
+                        {
+                            lbTo.Items.Add(station.Name);
+                        }
                         lbTo.Show();
                     }
-
                 }
                 catch
                 {
@@ -235,15 +243,14 @@ namespace FahrplanApp
                 {
                     lbStationboard.Items.Clear();
                     Stations stations = transport.GetStations(stationName);
-                    foreach (Station station in stations.StationList)
+                    if (stations.StationList.Count > 0)
                     {
-                        lbStationboard.Items.Add(station.Name);
-                    }
-                    if (lbStationboard.Items.Count > 0)
-                    {
+                        foreach (Station station in stations.StationList)
+                        {
+                            lbStationboard.Items.Add(station.Name);
+                        }
                         lbStationboard.Show();
                     }
-
                 }
                 catch
                 {
@@ -256,6 +263,140 @@ namespace FahrplanApp
         {
             txtStationboard.Text = lbStationboard.SelectedItem.ToString();
             lbStationboard.Hide();
+        }
+
+        private async void btnCloseBy_Click(object sender, EventArgs e)
+        {
+            Geoposition pos = await GetLocation();
+            if (pos != null)
+            {
+                string latitude = pos.Coordinate.Latitude.ToString();
+                string longitude = pos.Coordinate.Longitude.ToString();
+                try
+                {
+                    dgvMap.Rows.Clear();
+                    Stations stations = transport.GetStationsCloseBy(latitude,longitude);
+                    gmap.MapProvider = BingHybridMapProvider.Instance;
+                    GMaps.Instance.Mode = AccessMode.ServerOnly;
+                    gmap.ShowCenter = false;
+                    gmap.Position = new GMap.NET.PointLatLng(Convert.ToDouble(latitude), Convert.ToDouble(longitude));
+                    GMapOverlay markers = new GMapOverlay("markers");
+                    GMapMarker marker = new GMarkerGoogle(
+                        new PointLatLng(Convert.ToDouble(latitude), Convert.ToDouble(longitude)),
+                        GMarkerGoogleType.blue_pushpin);
+                    markers.Markers.Add(marker);
+                    foreach (Station station in stations.StationList)
+                    {
+                        double latitudeStation = (double)station.Coordinate.XCoordinate;
+                        double longitudeStation = (double)station.Coordinate.YCoordinate;
+                        GMapMarker markerStation = new GMarkerGoogle(
+                        new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
+                        GMarkerGoogleType.red_pushpin);
+                        markers.Markers.Add(markerStation);
+                    }
+                    gmap.Overlays.Clear();
+                    gmap.Overlays.Add(markers);
+                    gmap.Show();
+                    labelPlace.Text = "Stationen in der Nähe";
+                }
+                catch
+                {
+                    MessageBox.Show("Es ist ein Fehler aufgetreten");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten. Die Position konnte nicht bestimmt werden");
+            }
+        }
+        async private Task<Geoposition?> GetLocation()
+        {
+            Geolocator locator = new Geolocator();
+            var status = await Geolocator.RequestAccessAsync();
+            switch (status)
+            {
+                case GeolocationAccessStatus.Allowed:
+                    Geoposition pos = await locator.GetGeopositionAsync();
+                    return pos;
+
+                case GeolocationAccessStatus.Denied:
+                    MessageBox.Show("Keinen Zugriff auf die Position.");
+                    return null;
+
+                case GeolocationAccessStatus.Unspecified:
+                    MessageBox.Show("Es ist ein Fehler aufgetreten");
+                    return null;
+            }
+                return null;
+                    
+            
+            
+
+        }
+
+        private void btnPlace_Click(object sender, EventArgs e)
+        {
+            gmap.Hide();
+            string place = txtPlace.Text.Trim();
+            try
+            {
+                dgvMap.Rows.Clear();
+                labelPlace.Text = "Stationen mit dem Namen " + place;
+                Stations stations = transport.GetStations(place);
+                if(stations.StationList.Count > 0)
+                {
+                    foreach (Station station in stations.StationList)
+                    {
+                        dgvMap.Rows.Add(station.Name);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Es wurden keine Resultate gefunden.");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Es ist ein Fehler aufgetreten.");
+                
+            }
+        }
+
+        private void dgvMap_Click(object sender, EventArgs e)
+        {
+            int rowindex = dgvMap.CurrentCell.RowIndex;
+            int columnindex = dgvMap.CurrentCell.ColumnIndex;
+
+            string place = dgvMap.Rows[rowindex].Cells[columnindex].Value.ToString();
+            labelPlace.Text = place + " auf der Karte";
+            Stations stations = transport.GetStations(place);
+            foreach (Station station in stations.StationList)
+            {
+                double latitudeStation = (double)station.Coordinate.XCoordinate;
+                double longitudeStation = (double)station.Coordinate.YCoordinate;
+                gmap.MapProvider = BingHybridMapProvider.Instance;
+                GMaps.Instance.Mode = AccessMode.ServerOnly;
+                gmap.ShowCenter = false;
+                gmap.Position = new GMap.NET.PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation));
+                GMapOverlay markers = new GMapOverlay("markers");
+                GMapMarker markerStation = new GMarkerGoogle(
+                new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
+                GMarkerGoogleType.red_pushpin);
+                markers.Markers.Add(markerStation);
+                gmap.Overlays.Clear();
+                gmap.Overlays.Add(markers);
+                btnCloseMap.Show();
+                gmap.Show();
+                break;
+            }
+            
+
+        }
+
+        private void btnCloseMap_Click(object sender, EventArgs e)
+        {
+            gmap.Hide();
+            btnCloseMap.Hide();
         }
     }
 }

@@ -59,19 +59,22 @@
             this.endstationColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departureColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabMap = new System.Windows.Forms.TabPage();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.btnCloseMap = new System.Windows.Forms.Button();
+            this.gmap = new GMap.NET.WindowsForms.GMapControl();
+            this.btnCloseBy = new System.Windows.Forms.Button();
+            this.labelPlace = new System.Windows.Forms.Label();
+            this.btnPlace = new System.Windows.Forms.Button();
+            this.txtPlace = new System.Windows.Forms.TextBox();
+            this.dgvMap = new System.Windows.Forms.DataGridView();
             this.nameColumnMap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtPlace = new System.Windows.Forms.TextBox();
-            this.btnPlace = new System.Windows.Forms.Button();
-            this.labelPlace = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.tabConnections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
             this.tabStationboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStationboard)).BeginInit();
             this.tabMap.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMap)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -398,10 +401,13 @@
             // 
             // tabMap
             // 
+            this.tabMap.Controls.Add(this.btnCloseMap);
+            this.tabMap.Controls.Add(this.gmap);
+            this.tabMap.Controls.Add(this.btnCloseBy);
             this.tabMap.Controls.Add(this.labelPlace);
             this.tabMap.Controls.Add(this.btnPlace);
             this.tabMap.Controls.Add(this.txtPlace);
-            this.tabMap.Controls.Add(this.dataGridView1);
+            this.tabMap.Controls.Add(this.dgvMap);
             this.tabMap.Controls.Add(this.label6);
             this.tabMap.Location = new System.Drawing.Point(4, 30);
             this.tabMap.Name = "tabMap";
@@ -411,16 +417,97 @@
             this.tabMap.Text = "Karte";
             this.tabMap.UseVisualStyleBackColor = true;
             // 
-            // dataGridView1
+            // btnCloseMap
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.btnCloseMap.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCloseMap.Location = new System.Drawing.Point(672, 397);
+            this.btnCloseMap.Name = "btnCloseMap";
+            this.btnCloseMap.Size = new System.Drawing.Size(97, 52);
+            this.btnCloseMap.TabIndex = 7;
+            this.btnCloseMap.Text = "Zurück zur Auswahl";
+            this.btnCloseMap.UseVisualStyleBackColor = true;
+            this.btnCloseMap.Click += new System.EventHandler(this.btnCloseMap_Click);
+            // 
+            // gmap
+            // 
+            this.gmap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gmap.Bearing = 0F;
+            this.gmap.CanDragMap = true;
+            this.gmap.EmptyTileColor = System.Drawing.Color.Navy;
+            this.gmap.GrayScaleMode = false;
+            this.gmap.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
+            this.gmap.LevelsKeepInMemory = 5;
+            this.gmap.Location = new System.Drawing.Point(-4, 386);
+            this.gmap.MarkersEnabled = true;
+            this.gmap.MaxZoom = 18;
+            this.gmap.MinZoom = 2;
+            this.gmap.MouseWheelZoomEnabled = true;
+            this.gmap.MouseWheelZoomType = GMap.NET.MouseWheelZoomType.MousePositionAndCenter;
+            this.gmap.Name = "gmap";
+            this.gmap.NegativeMode = false;
+            this.gmap.PolygonsEnabled = true;
+            this.gmap.RetryLoadTile = 0;
+            this.gmap.RoutesEnabled = true;
+            this.gmap.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
+            this.gmap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
+            this.gmap.ShowTileGridLines = false;
+            this.gmap.Size = new System.Drawing.Size(783, 389);
+            this.gmap.TabIndex = 6;
+            this.gmap.Zoom = 9D;
+            // 
+            // btnCloseBy
+            // 
+            this.btnCloseBy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCloseBy.Location = new System.Drawing.Point(628, 309);
+            this.btnCloseBy.Name = "btnCloseBy";
+            this.btnCloseBy.Size = new System.Drawing.Size(141, 71);
+            this.btnCloseBy.TabIndex = 5;
+            this.btnCloseBy.Text = "Station in der Nähe";
+            this.btnCloseBy.UseVisualStyleBackColor = true;
+            this.btnCloseBy.Click += new System.EventHandler(this.btnCloseBy_Click);
+            // 
+            // labelPlace
+            // 
+            this.labelPlace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelPlace.AutoSize = true;
+            this.labelPlace.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelPlace.Location = new System.Drawing.Point(35, 362);
+            this.labelPlace.Name = "labelPlace";
+            this.labelPlace.Size = new System.Drawing.Size(84, 21);
+            this.labelPlace.TabIndex = 4;
+            this.labelPlace.Text = "Stationen";
+            // 
+            // btnPlace
+            // 
+            this.btnPlace.Location = new System.Drawing.Point(514, 97);
+            this.btnPlace.Name = "btnPlace";
+            this.btnPlace.Size = new System.Drawing.Size(141, 71);
+            this.btnPlace.TabIndex = 3;
+            this.btnPlace.Text = "Stationen suchen";
+            this.btnPlace.UseVisualStyleBackColor = true;
+            this.btnPlace.Click += new System.EventHandler(this.btnPlace_Click);
+            // 
+            // txtPlace
+            // 
+            this.txtPlace.Location = new System.Drawing.Point(249, 119);
+            this.txtPlace.Name = "txtPlace";
+            this.txtPlace.Size = new System.Drawing.Size(259, 29);
+            this.txtPlace.TabIndex = 2;
+            // 
+            // dgvMap
+            // 
+            this.dgvMap.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dgvMap.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMap.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameColumnMap});
-            this.dataGridView1.Location = new System.Drawing.Point(-4, 386);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(783, 389);
-            this.dataGridView1.TabIndex = 1;
+            this.dgvMap.Location = new System.Drawing.Point(-4, 386);
+            this.dgvMap.Name = "dgvMap";
+            this.dgvMap.RowTemplate.Height = 25;
+            this.dgvMap.Size = new System.Drawing.Size(783, 389);
+            this.dgvMap.TabIndex = 1;
+            this.dgvMap.Click += new System.EventHandler(this.dgvMap_Click);
             // 
             // nameColumnMap
             // 
@@ -437,32 +524,6 @@
             this.label6.Size = new System.Drawing.Size(36, 21);
             this.label6.TabIndex = 0;
             this.label6.Text = "Ort:";
-            // 
-            // txtPlace
-            // 
-            this.txtPlace.Location = new System.Drawing.Point(249, 119);
-            this.txtPlace.Name = "txtPlace";
-            this.txtPlace.Size = new System.Drawing.Size(259, 29);
-            this.txtPlace.TabIndex = 2;
-            // 
-            // btnPlace
-            // 
-            this.btnPlace.Location = new System.Drawing.Point(514, 97);
-            this.btnPlace.Name = "btnPlace";
-            this.btnPlace.Size = new System.Drawing.Size(141, 71);
-            this.btnPlace.TabIndex = 3;
-            this.btnPlace.Text = "Stationen suchen";
-            this.btnPlace.UseVisualStyleBackColor = true;
-            // 
-            // labelPlace
-            // 
-            this.labelPlace.AutoSize = true;
-            this.labelPlace.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelPlace.Location = new System.Drawing.Point(35, 362);
-            this.labelPlace.Name = "labelPlace";
-            this.labelPlace.Size = new System.Drawing.Size(84, 21);
-            this.labelPlace.TabIndex = 4;
-            this.labelPlace.Text = "Stationen";
             // 
             // Form1
             // 
@@ -483,7 +544,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvStationboard)).EndInit();
             this.tabMap.ResumeLayout(false);
             this.tabMap.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMap)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -521,11 +582,14 @@
         private ListBox lbTo;
         private ListBox lbFrom;
         private ListBox lbStationboard;
-        private DataGridView dataGridView1;
+        private DataGridView dgvMap;
         private DataGridViewTextBoxColumn nameColumnMap;
         private Label label6;
         private Label labelPlace;
         private Button btnPlace;
         private TextBox txtPlace;
+        private Button btnCloseBy;
+        private GMap.NET.WindowsForms.GMapControl gmap;
+        private Button btnCloseMap;
     }
 }
