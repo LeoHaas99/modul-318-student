@@ -36,7 +36,8 @@ namespace FahrplanApp
                 {
                     Connections connections = transport.GetConnections(fromStation, toStation, date, time);
                     dgvConnections.Rows.Clear();
-                    labelConnection.Text = "Verbindungen von " + fromStation + " nach " + toStation + " am " + Convert.ToDateTime(date).ToString("D") + ", " + Convert.ToDateTime(time).ToString("HH:mm");
+                    closeLists(sender, e);
+                    labelConnection.Text = "Verbindungen \nvon " + fromStation + " nach " + toStation + " \nam " + Convert.ToDateTime(date).ToString("D") + ", " + Convert.ToDateTime(time).ToString("HH:mm");
                     if (connections.ConnectionList.Count > 0)
                     {
                         string tempDate = "";
@@ -92,6 +93,7 @@ namespace FahrplanApp
                 {
                     StationBoardRoot stationboard = transport.GetStationBoard(station);
                     dgvStationboard.Rows.Clear();
+                    closeLists(sender, e);
                     labelStationboard.Text = "Aktuelle Anzeigetafel von " + station;
                     if (stationboard.Entries.Count > 0)
                     {
@@ -99,7 +101,15 @@ namespace FahrplanApp
                         {
                             string category = connection.Category.ToString();
                             string number = connection.Number.ToString();
-                            string platform = connection.Stop.Platform.ToString();
+                            string platform = "";
+                            if (connection.Stop.Platform != null)
+                            {
+                                platform = connection.Stop.Platform.ToString();
+                            }
+                            else
+                            {
+                                platform = "unbekannt";
+                            }
                             string endstation = connection.To.ToString();
                             string departure = connection.Stop.Departure.ToString("HH:mm");
 
@@ -120,6 +130,132 @@ namespace FahrplanApp
             {
                 MessageBox.Show("Bitte füllen Sie das Stationsfeld aus.");
             }
+        }
+
+        private void txtFrom_TextChanged(object sender, EventArgs e)
+        {
+            if(txtFrom.Text.Length > 2)
+            {
+                string stationName = txtFrom.Text.Trim();
+                try
+                {
+                    lbFrom.Items.Clear();
+                    Stations stations = transport.GetStations(stationName);
+                    foreach(Station station in stations.StationList)
+                    {
+                        lbFrom.Items.Add(station.Name);
+                    }
+                    if(lbFrom.Items.Count > 0)
+                    {
+                        lbFrom.Show();
+                    }
+
+                }
+                catch
+                {
+                    lbFrom.Hide();
+                }
+            }
+        }
+
+        private void lbFrom_Leave(object sender, EventArgs e)
+        {
+            lbFrom.Hide();
+        }
+
+        private void txtFrom_Enter(object sender, EventArgs e)
+        {
+            lbTo.Hide();
+            if(txtFrom.Text.Length > 2 && lbFrom.Items.Count > 0)
+            {
+                lbFrom.Show();
+            }
+        }
+
+        private void txtTo_Enter(object sender, EventArgs e)
+        {
+            lbFrom.Hide();
+            if (txtTo.Text.Length > 2 && lbTo.Items.Count > 0)
+            {
+                lbTo.Show();
+            }
+        }
+
+        private void closeLists(object sender, EventArgs e)
+        {
+            lbFrom.Hide();
+            lbTo.Hide();
+            lbStationboard.Hide();
+        }
+
+        private void lbFrom_Click(object sender, EventArgs e)
+        {
+            txtFrom.Text = lbFrom.SelectedItem.ToString();
+            lbFrom.Hide();
+        }
+
+        private void txtTo_TextChanged(object sender, EventArgs e)
+        {
+            if (txtTo.Text.Length > 2)
+            {
+                string stationName = txtTo.Text.Trim();
+                try
+                {
+                    lbTo.Items.Clear();
+                    Stations stations = transport.GetStations(stationName);
+                    foreach (Station station in stations.StationList)
+                    {
+                        lbTo.Items.Add(station.Name);
+                    }
+                    if (lbTo.Items.Count > 0)
+                    {
+                        lbTo.Show();
+                    }
+
+                }
+                catch
+                {
+                    lbTo.Hide();
+                }
+            }
+        }
+
+        private void lbTo_Click(object sender, EventArgs e)
+        {
+            txtTo.Text = lbTo.SelectedItem.ToString();
+            lbTo.Hide();
+        }
+
+        private void txtStationboard_TextChanged(object sender, EventArgs e)
+        {
+            if (txtStationboard.Text.Length > 2)
+            {
+                string stationName = txtStationboard.Text.Trim();
+                try
+                {
+                    lbStationboard.Items.Clear();
+                    Stations stations = transport.GetStations(stationName);
+                    foreach (Station station in stations.StationList)
+                    {
+                        lbStationboard.Items.Add(station.Name);
+                    }
+                    if (lbStationboard.Items.Count > 0)
+                    {
+                        lbStationboard.Show();
+                    }
+
+                }
+                catch
+                {
+                    lbStationboard.Hide();
+                }
+            }
+        }
+
+        private void lbStationboard_Click(object sender, EventArgs e)
+        {
+            txtStationboard.Text = lbStationboard.SelectedItem.ToString();
+            lbStationboard.Hide();
         }
     }
 }

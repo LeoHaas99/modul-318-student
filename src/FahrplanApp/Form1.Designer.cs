@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabConnections = new System.Windows.Forms.TabPage();
             this.lbTo = new System.Windows.Forms.ListBox();
             this.lbFrom = new System.Windows.Forms.ListBox();
             this.labelConnection = new System.Windows.Forms.Label();
@@ -47,7 +47,7 @@
             this.txtTo = new System.Windows.Forms.TextBox();
             this.txtFrom = new System.Windows.Forms.TextBox();
             this.btnConnections = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabStationboard = new System.Windows.Forms.TabPage();
             this.lbStationboard = new System.Windows.Forms.ListBox();
             this.labelStationboard = new System.Windows.Forms.Label();
             this.btnStationboard = new System.Windows.Forms.Button();
@@ -58,12 +58,20 @@
             this.platformColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.endstationColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departureColumnSB = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabMap = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.nameColumnMap = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtPlace = new System.Windows.Forms.TextBox();
+            this.btnPlace = new System.Windows.Forms.Button();
+            this.labelPlace = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabConnections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.tabStationboard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStationboard)).BeginInit();
+            this.tabMap.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -71,9 +79,9 @@
             this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl.Controls.Add(this.tabPage1);
-            this.tabControl.Controls.Add(this.tabPage2);
-            this.tabControl.Controls.Add(this.tabPage3);
+            this.tabControl.Controls.Add(this.tabConnections);
+            this.tabControl.Controls.Add(this.tabStationboard);
+            this.tabControl.Controls.Add(this.tabMap);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
@@ -81,66 +89,71 @@
             this.tabControl.Size = new System.Drawing.Size(783, 805);
             this.tabControl.TabIndex = 0;
             // 
-            // tabPage1
+            // tabConnections
             // 
-            this.tabPage1.Controls.Add(this.lbTo);
-            this.tabPage1.Controls.Add(this.lbFrom);
-            this.tabPage1.Controls.Add(this.labelConnection);
-            this.tabPage1.Controls.Add(this.datePicker);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.dgvConnections);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.timePicker);
-            this.tabPage1.Controls.Add(this.txtTo);
-            this.tabPage1.Controls.Add(this.txtFrom);
-            this.tabPage1.Controls.Add(this.btnConnections);
-            this.tabPage1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.tabPage1.Location = new System.Drawing.Point(4, 30);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(775, 771);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Verbindungen";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabConnections.Controls.Add(this.lbTo);
+            this.tabConnections.Controls.Add(this.lbFrom);
+            this.tabConnections.Controls.Add(this.labelConnection);
+            this.tabConnections.Controls.Add(this.datePicker);
+            this.tabConnections.Controls.Add(this.label4);
+            this.tabConnections.Controls.Add(this.label3);
+            this.tabConnections.Controls.Add(this.dgvConnections);
+            this.tabConnections.Controls.Add(this.label2);
+            this.tabConnections.Controls.Add(this.label1);
+            this.tabConnections.Controls.Add(this.timePicker);
+            this.tabConnections.Controls.Add(this.txtTo);
+            this.tabConnections.Controls.Add(this.txtFrom);
+            this.tabConnections.Controls.Add(this.btnConnections);
+            this.tabConnections.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tabConnections.Location = new System.Drawing.Point(4, 30);
+            this.tabConnections.Name = "tabConnections";
+            this.tabConnections.Padding = new System.Windows.Forms.Padding(3);
+            this.tabConnections.Size = new System.Drawing.Size(775, 771);
+            this.tabConnections.TabIndex = 0;
+            this.tabConnections.Text = "Verbindungen";
+            this.tabConnections.UseVisualStyleBackColor = true;
+            this.tabConnections.Click += new System.EventHandler(this.closeLists);
             // 
             // lbTo
             // 
             this.lbTo.FormattingEnabled = true;
             this.lbTo.ItemHeight = 21;
-            this.lbTo.Location = new System.Drawing.Point(419, 112);
+            this.lbTo.Location = new System.Drawing.Point(419, 111);
             this.lbTo.Name = "lbTo";
-            this.lbTo.Size = new System.Drawing.Size(146, 172);
+            this.lbTo.Size = new System.Drawing.Size(259, 172);
             this.lbTo.TabIndex = 13;
+            this.lbTo.Click += new System.EventHandler(this.lbTo_Click);
             // 
             // lbFrom
             // 
             this.lbFrom.FormattingEnabled = true;
+            this.lbFrom.HorizontalScrollbar = true;
             this.lbFrom.ItemHeight = 21;
-            this.lbFrom.Location = new System.Drawing.Point(85, 112);
+            this.lbFrom.Location = new System.Drawing.Point(106, 111);
             this.lbFrom.Name = "lbFrom";
-            this.lbFrom.Size = new System.Drawing.Size(147, 172);
+            this.lbFrom.Size = new System.Drawing.Size(259, 172);
             this.lbFrom.TabIndex = 12;
+            this.lbFrom.Click += new System.EventHandler(this.lbFrom_Click);
+            this.lbFrom.Leave += new System.EventHandler(this.lbFrom_Leave);
             // 
             // labelConnection
             // 
             this.labelConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelConnection.AutoSize = true;
             this.labelConnection.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.labelConnection.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelConnection.Location = new System.Drawing.Point(35, 348);
+            this.labelConnection.Location = new System.Drawing.Point(33, 313);
             this.labelConnection.Name = "labelConnection";
-            this.labelConnection.Size = new System.Drawing.Size(119, 21);
+            this.labelConnection.Size = new System.Drawing.Size(446, 70);
             this.labelConnection.TabIndex = 11;
             this.labelConnection.Text = "Verbindungen";
             // 
             // datePicker
             // 
-            this.datePicker.Location = new System.Drawing.Point(86, 144);
+            this.datePicker.Location = new System.Drawing.Point(106, 144);
             this.datePicker.Name = "datePicker";
             this.datePicker.Size = new System.Drawing.Size(200, 29);
-            this.datePicker.TabIndex = 10;
+            this.datePicker.TabIndex = 3;
+            this.datePicker.Enter += new System.EventHandler(this.closeLists);
             // 
             // label4
             // 
@@ -155,7 +168,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 150);
+            this.label3.Location = new System.Drawing.Point(40, 150);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 21);
             this.label3.TabIndex = 8;
@@ -175,7 +188,7 @@
             this.dgvConnections.Name = "dgvConnections";
             this.dgvConnections.RowTemplate.Height = 25;
             this.dgvConnections.Size = new System.Drawing.Size(783, 389);
-            this.dgvConnections.TabIndex = 7;
+            this.dgvConnections.TabIndex = 6;
             // 
             // dateOfDepartureColumn
             // 
@@ -234,6 +247,7 @@
             this.timePicker.Name = "timePicker";
             this.timePicker.Size = new System.Drawing.Size(72, 29);
             this.timePicker.TabIndex = 4;
+            this.timePicker.Enter += new System.EventHandler(this.closeLists);
             // 
             // txtTo
             // 
@@ -242,13 +256,17 @@
             this.txtTo.Name = "txtTo";
             this.txtTo.Size = new System.Drawing.Size(146, 29);
             this.txtTo.TabIndex = 2;
+            this.txtTo.TextChanged += new System.EventHandler(this.txtTo_TextChanged);
+            this.txtTo.Enter += new System.EventHandler(this.txtTo_Enter);
             // 
             // txtFrom
             // 
-            this.txtFrom.Location = new System.Drawing.Point(86, 87);
+            this.txtFrom.Location = new System.Drawing.Point(106, 87);
             this.txtFrom.Name = "txtFrom";
             this.txtFrom.Size = new System.Drawing.Size(146, 29);
             this.txtFrom.TabIndex = 1;
+            this.txtFrom.TextChanged += new System.EventHandler(this.txtFrom_TextChanged);
+            this.txtFrom.Enter += new System.EventHandler(this.txtFrom_Enter);
             // 
             // btnConnections
             // 
@@ -257,35 +275,37 @@
             this.btnConnections.Location = new System.Drawing.Point(600, 65);
             this.btnConnections.Name = "btnConnections";
             this.btnConnections.Size = new System.Drawing.Size(141, 71);
-            this.btnConnections.TabIndex = 0;
+            this.btnConnections.TabIndex = 5;
             this.btnConnections.Text = "Verbindungen suchen";
             this.btnConnections.UseVisualStyleBackColor = true;
             this.btnConnections.Click += new System.EventHandler(this.btnConnections_Click);
             // 
-            // tabPage2
+            // tabStationboard
             // 
-            this.tabPage2.Controls.Add(this.lbStationboard);
-            this.tabPage2.Controls.Add(this.labelStationboard);
-            this.tabPage2.Controls.Add(this.btnStationboard);
-            this.tabPage2.Controls.Add(this.txtStationboard);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.dgvStationboard);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(775, 771);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Abfahrtstafel";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabStationboard.Controls.Add(this.lbStationboard);
+            this.tabStationboard.Controls.Add(this.labelStationboard);
+            this.tabStationboard.Controls.Add(this.btnStationboard);
+            this.tabStationboard.Controls.Add(this.txtStationboard);
+            this.tabStationboard.Controls.Add(this.label5);
+            this.tabStationboard.Controls.Add(this.dgvStationboard);
+            this.tabStationboard.Location = new System.Drawing.Point(4, 30);
+            this.tabStationboard.Name = "tabStationboard";
+            this.tabStationboard.Padding = new System.Windows.Forms.Padding(3);
+            this.tabStationboard.Size = new System.Drawing.Size(775, 771);
+            this.tabStationboard.TabIndex = 1;
+            this.tabStationboard.Text = "Abfahrtstafel";
+            this.tabStationboard.UseVisualStyleBackColor = true;
+            this.tabStationboard.Click += new System.EventHandler(this.closeLists);
             // 
             // lbStationboard
             // 
             this.lbStationboard.FormattingEnabled = true;
             this.lbStationboard.ItemHeight = 21;
-            this.lbStationboard.Location = new System.Drawing.Point(272, 144);
+            this.lbStationboard.Location = new System.Drawing.Point(249, 146);
             this.lbStationboard.Name = "lbStationboard";
-            this.lbStationboard.Size = new System.Drawing.Size(141, 151);
+            this.lbStationboard.Size = new System.Drawing.Size(259, 172);
             this.lbStationboard.TabIndex = 5;
+            this.lbStationboard.Click += new System.EventHandler(this.lbStationboard_Click);
             // 
             // labelStationboard
             // 
@@ -293,7 +313,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStationboard.AutoSize = true;
             this.labelStationboard.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.labelStationboard.Location = new System.Drawing.Point(35, 348);
+            this.labelStationboard.Location = new System.Drawing.Point(35, 362);
             this.labelStationboard.Name = "labelStationboard";
             this.labelStationboard.Size = new System.Drawing.Size(175, 21);
             this.labelStationboard.TabIndex = 4;
@@ -302,7 +322,7 @@
             // btnStationboard
             // 
             this.btnStationboard.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnStationboard.Location = new System.Drawing.Point(425, 97);
+            this.btnStationboard.Location = new System.Drawing.Point(514, 97);
             this.btnStationboard.Name = "btnStationboard";
             this.btnStationboard.Size = new System.Drawing.Size(141, 71);
             this.btnStationboard.TabIndex = 3;
@@ -313,16 +333,17 @@
             // txtStationboard
             // 
             this.txtStationboard.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.txtStationboard.Location = new System.Drawing.Point(272, 118);
+            this.txtStationboard.Location = new System.Drawing.Point(249, 119);
             this.txtStationboard.Name = "txtStationboard";
-            this.txtStationboard.Size = new System.Drawing.Size(141, 29);
+            this.txtStationboard.Size = new System.Drawing.Size(259, 29);
             this.txtStationboard.TabIndex = 2;
+            this.txtStationboard.TextChanged += new System.EventHandler(this.txtStationboard_TextChanged);
             // 
             // label5
             // 
             this.label5.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(199, 122);
+            this.label5.Location = new System.Drawing.Point(186, 122);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 21);
             this.label5.TabIndex = 1;
@@ -375,15 +396,73 @@
             this.departureColumnSB.Name = "departureColumnSB";
             this.departureColumnSB.ReadOnly = true;
             // 
-            // tabPage3
+            // tabMap
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 30);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(775, 771);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Karte";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabMap.Controls.Add(this.labelPlace);
+            this.tabMap.Controls.Add(this.btnPlace);
+            this.tabMap.Controls.Add(this.txtPlace);
+            this.tabMap.Controls.Add(this.dataGridView1);
+            this.tabMap.Controls.Add(this.label6);
+            this.tabMap.Location = new System.Drawing.Point(4, 30);
+            this.tabMap.Name = "tabMap";
+            this.tabMap.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMap.Size = new System.Drawing.Size(775, 771);
+            this.tabMap.TabIndex = 2;
+            this.tabMap.Text = "Karte";
+            this.tabMap.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.nameColumnMap});
+            this.dataGridView1.Location = new System.Drawing.Point(-4, 386);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 25;
+            this.dataGridView1.Size = new System.Drawing.Size(783, 389);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // nameColumnMap
+            // 
+            this.nameColumnMap.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.nameColumnMap.HeaderText = "Name";
+            this.nameColumnMap.Name = "nameColumnMap";
+            this.nameColumnMap.ReadOnly = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(186, 122);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(36, 21);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "Ort:";
+            // 
+            // txtPlace
+            // 
+            this.txtPlace.Location = new System.Drawing.Point(249, 119);
+            this.txtPlace.Name = "txtPlace";
+            this.txtPlace.Size = new System.Drawing.Size(259, 29);
+            this.txtPlace.TabIndex = 2;
+            // 
+            // btnPlace
+            // 
+            this.btnPlace.Location = new System.Drawing.Point(514, 97);
+            this.btnPlace.Name = "btnPlace";
+            this.btnPlace.Size = new System.Drawing.Size(141, 71);
+            this.btnPlace.TabIndex = 3;
+            this.btnPlace.Text = "Stationen suchen";
+            this.btnPlace.UseVisualStyleBackColor = true;
+            // 
+            // labelPlace
+            // 
+            this.labelPlace.AutoSize = true;
+            this.labelPlace.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.labelPlace.Location = new System.Drawing.Point(35, 362);
+            this.labelPlace.Name = "labelPlace";
+            this.labelPlace.Size = new System.Drawing.Size(84, 21);
+            this.labelPlace.TabIndex = 4;
+            this.labelPlace.Text = "Stationen";
             // 
             // Form1
             // 
@@ -396,12 +475,15 @@
             this.Text = "FahrplanApp";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabConnections.ResumeLayout(false);
+            this.tabConnections.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabStationboard.ResumeLayout(false);
+            this.tabStationboard.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvStationboard)).EndInit();
+            this.tabMap.ResumeLayout(false);
+            this.tabMap.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -409,10 +491,10 @@
         #endregion
 
         private TabControl tabControl;
-        private TabPage tabPage2;
-        private TabPage tabPage1;
+        private TabPage tabStationboard;
+        private TabPage tabConnections;
         private Button btnConnections;
-        private TabPage tabPage3;
+        private TabPage tabMap;
         private TextBox txtTo;
         private TextBox txtFrom;
         private DateTimePicker timePicker;
@@ -439,5 +521,11 @@
         private ListBox lbTo;
         private ListBox lbFrom;
         private ListBox lbStationboard;
+        private DataGridView dataGridView1;
+        private DataGridViewTextBoxColumn nameColumnMap;
+        private Label label6;
+        private Label labelPlace;
+        private Button btnPlace;
+        private TextBox txtPlace;
     }
 }
