@@ -78,10 +78,10 @@
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x86"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     {
-                    "Name" = "8:.NET Desktop-Runtime 6.0.1 (x86)"
-                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x86"
+                    "Name" = "8:.NET Desktop-Runtime 6.0.1 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     }
                 }
             }
@@ -184,7 +184,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Fahrplan App"
         "ProductCode" = "8:{02BE0302-F757-4FB0-A573-1B31067E1CCB}"
-        "PackageCode" = "8:{118F5403-290B-4678-BCCD-68B8FCEBCB5B}"
+        "PackageCode" = "8:{6CBF5200-E118-4C48-AB04-920DF71B1B78}"
         "UpgradeCode" = "8:{F6E4BFC5-356C-490A-9CD9-1C3C9CFE4D77}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
