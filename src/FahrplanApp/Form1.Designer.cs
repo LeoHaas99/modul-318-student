@@ -329,7 +329,7 @@
             this.btnStationboard.Location = new System.Drawing.Point(514, 97);
             this.btnStationboard.Name = "btnStationboard";
             this.btnStationboard.Size = new System.Drawing.Size(141, 71);
-            this.btnStationboard.TabIndex = 3;
+            this.btnStationboard.TabIndex = 2;
             this.btnStationboard.Text = "Anzeigetafel suchen";
             this.btnStationboard.UseVisualStyleBackColor = true;
             this.btnStationboard.Click += new System.EventHandler(this.btnStationboard_Click);
@@ -340,7 +340,7 @@
             this.txtStationboard.Location = new System.Drawing.Point(249, 119);
             this.txtStationboard.Name = "txtStationboard";
             this.txtStationboard.Size = new System.Drawing.Size(259, 29);
-            this.txtStationboard.TabIndex = 2;
+            this.txtStationboard.TabIndex = 1;
             this.txtStationboard.TextChanged += new System.EventHandler(this.txtStationboard_TextChanged);
             // 
             // label5
@@ -436,7 +436,7 @@
             this.btnCloseMap.Location = new System.Drawing.Point(672, 397);
             this.btnCloseMap.Name = "btnCloseMap";
             this.btnCloseMap.Size = new System.Drawing.Size(97, 52);
-            this.btnCloseMap.TabIndex = 7;
+            this.btnCloseMap.TabIndex = 5;
             this.btnCloseMap.Text = "Zurück zur Auswahl";
             this.btnCloseMap.UseVisualStyleBackColor = true;
             this.btnCloseMap.Click += new System.EventHandler(this.btnCloseMap_Click);
@@ -466,7 +466,7 @@
             this.gmap.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gmap.ShowTileGridLines = false;
             this.gmap.Size = new System.Drawing.Size(783, 389);
-            this.gmap.TabIndex = 6;
+            this.gmap.TabIndex = 4;
             this.gmap.Zoom = 9D;
             // 
             // btnCloseBy
@@ -475,7 +475,7 @@
             this.btnCloseBy.Location = new System.Drawing.Point(628, 309);
             this.btnCloseBy.Name = "btnCloseBy";
             this.btnCloseBy.Size = new System.Drawing.Size(141, 71);
-            this.btnCloseBy.TabIndex = 5;
+            this.btnCloseBy.TabIndex = 3;
             this.btnCloseBy.Text = "Station in der Nähe";
             this.btnCloseBy.UseVisualStyleBackColor = true;
             this.btnCloseBy.Click += new System.EventHandler(this.btnCloseBy_Click);
@@ -496,7 +496,7 @@
             this.btnPlace.Location = new System.Drawing.Point(514, 97);
             this.btnPlace.Name = "btnPlace";
             this.btnPlace.Size = new System.Drawing.Size(141, 71);
-            this.btnPlace.TabIndex = 3;
+            this.btnPlace.TabIndex = 2;
             this.btnPlace.Text = "Stationen suchen";
             this.btnPlace.UseVisualStyleBackColor = true;
             this.btnPlace.Click += new System.EventHandler(this.btnPlace_Click);
@@ -506,7 +506,7 @@
             this.txtPlace.Location = new System.Drawing.Point(249, 119);
             this.txtPlace.Name = "txtPlace";
             this.txtPlace.Size = new System.Drawing.Size(259, 29);
-            this.txtPlace.TabIndex = 2;
+            this.txtPlace.TabIndex = 1;
             this.txtPlace.TextChanged += new System.EventHandler(this.txtPlace_TextChanged);
             // 
             // dgvMap
@@ -520,7 +520,7 @@
             this.dgvMap.Name = "dgvMap";
             this.dgvMap.RowTemplate.Height = 25;
             this.dgvMap.Size = new System.Drawing.Size(783, 389);
-            this.dgvMap.TabIndex = 1;
+            this.dgvMap.TabIndex = 0;
             this.dgvMap.Click += new System.EventHandler(this.dgvMap_Click);
             // 
             // nameColumnMap
