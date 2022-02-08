@@ -272,11 +272,12 @@ namespace FahrplanApp
         private async void btnCloseBy_Click(object sender, EventArgs e)
         {
             closeLists(sender, e);
-            Geoposition pos = await GetLocation();
-            if (pos != null)
+            Location location = new Location();
+            ;
+            if (await location.SetLocationAsync())
             {
-                string latitude = pos.Coordinate.Latitude.ToString();
-                string longitude = pos.Coordinate.Longitude.ToString();
+                string latitude = location.latitude;
+                string longitude = location.longitude;
                 try
                 {
                     dgvMap.Rows.Clear();
@@ -289,6 +290,7 @@ namespace FahrplanApp
                     GMapMarker marker = new GMarkerGoogle(
                         new PointLatLng(Convert.ToDouble(latitude), Convert.ToDouble(longitude)),
                         GMarkerGoogleType.blue_pushpin);
+                    marker.ToolTipText = "Dein Standort";
                     markers.Markers.Add(marker);
                     foreach (Station station in stations.StationList)
                     {
@@ -299,6 +301,7 @@ namespace FahrplanApp
                             GMapMarker markerStation = new GMarkerGoogle(
                             new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
                             GMarkerGoogleType.red_pushpin);
+                            markerStation.ToolTipText = station.Name;
                             markers.Markers.Add(markerStation);
                         }
                     }
@@ -317,27 +320,7 @@ namespace FahrplanApp
                 MessageBox.Show("Es ist ein Fehler aufgetreten. Die Position konnte nicht bestimmt werden");
             }
         }
-        async private Task<Geoposition?> GetLocation()
-        {
-            Geolocator locator = new Geolocator();
-            var status = await Geolocator.RequestAccessAsync();
-            switch (status)
-            {
-                case GeolocationAccessStatus.Allowed:
-                    Geoposition pos = await locator.GetGeopositionAsync();
-                    return pos;
-
-                case GeolocationAccessStatus.Denied:
-                    MessageBox.Show("Keinen Zugriff auf die Position.");
-                    return null;
-
-                case GeolocationAccessStatus.Unspecified:
-                    MessageBox.Show("Es ist ein Fehler aufgetreten");
-                    return null;
-            }
-                return null;
-        }
-
+        
         private void btnPlace_Click(object sender, EventArgs e)
         {
             gmap.Hide();
@@ -387,6 +370,7 @@ namespace FahrplanApp
                     GMapMarker markerStation = new GMarkerGoogle(
                     new PointLatLng(Convert.ToDouble(latitudeStation), Convert.ToDouble(longitudeStation)),
                     GMarkerGoogleType.red_pushpin);
+                    markerStation.ToolTipText = station.Name;
                     markers.Markers.Add(markerStation);
                     gmap.Overlays.Clear();
                     gmap.Overlays.Add(markers);
