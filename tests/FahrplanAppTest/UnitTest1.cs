@@ -1,18 +1,29 @@
 using NUnit.Framework;
+using System.Threading.Tasks;
+using FahrplanApp;
+using Windows.Devices.Geolocation;
 
 namespace FahrplanAppTest
 {
-    public class Tests
+    public class LocationTest
     {
-        [SetUp]
-        public void Setup()
+        
+        [Test]
+        public async Task LocationTestAsync()
         {
+            Location location = new Location();
+            await location.SetLocationAsync();
+            Assert.IsNotNull(location.Longitude);
+            Assert.IsNotNull(location.Latitude);
         }
 
         [Test]
-        public void Test1()
+        public async Task LocationAccessTestAsync()
         {
-            Assert.Pass();
+            Location location = new Location();
+            if (await location.SetLocationAsync()){
+                Assert.AreEqual(location.Status, GeolocationAccessStatus.Allowed);
+            }
         }
     }
 }

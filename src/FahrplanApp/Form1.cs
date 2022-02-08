@@ -276,8 +276,8 @@ namespace FahrplanApp
             ;
             if (await location.SetLocationAsync())
             {
-                string latitude = location.latitude;
-                string longitude = location.longitude;
+                string latitude = location.Latitude;
+                string longitude = location.Longitude;
                 try
                 {
                     dgvMap.Rows.Clear();
