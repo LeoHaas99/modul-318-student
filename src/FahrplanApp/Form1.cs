@@ -32,7 +32,6 @@ namespace FahrplanApp
             gmap.Hide();
             btnCloseMap.Hide();
             labelPlace.Text = "";
-            btnShare.Hide();
         }
 
         
@@ -52,7 +51,6 @@ namespace FahrplanApp
                     dgvConnections.Rows.Clear();
                     closeLists(sender, e);
                     labelConnection.Text = "Verbindungen \nvon " + fromStation + " nach " + toStation + " \nam " + Convert.ToDateTime(date).ToString("D") + ", " + Convert.ToDateTime(time).ToString("HH:mm");
-                    btnShare.Show();
                     if (connections.ConnectionList.Count > 0)
                     {
                         string tempDate = "";
@@ -441,14 +439,5 @@ namespace FahrplanApp
             lbPlace.Hide();
         }
 
-        private void btnShare_Click(object sender, EventArgs e)
-        {
-            string dateOfDeparture = dgvConnections.CurrentRow.Cells[0].Value.ToString();
-            string platform = dgvConnections.CurrentRow.Cells[1].Value.ToString();
-            string departure = dgvConnections.CurrentRow.Cells[2].Value.ToString();
-            string arrival = dgvConnections.CurrentRow.Cells[3].Value.ToString();
-            tabControl.SelectedIndex = 2;
-            tabMail.Hide();
-        }
     }
 }

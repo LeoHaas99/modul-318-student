@@ -30,7 +30,6 @@
         {
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabConnections = new System.Windows.Forms.TabPage();
-            this.btnShare = new System.Windows.Forms.Button();
             this.lbTo = new System.Windows.Forms.ListBox();
             this.lbFrom = new System.Windows.Forms.ListBox();
             this.labelConnection = new System.Windows.Forms.Label();
@@ -70,7 +69,6 @@
             this.dgvMap = new System.Windows.Forms.DataGridView();
             this.nameColumnMap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label6 = new System.Windows.Forms.Label();
-            this.tabMail = new System.Windows.Forms.TabPage();
             this.tabControl.SuspendLayout();
             this.tabConnections.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvConnections)).BeginInit();
@@ -88,7 +86,6 @@
             this.tabControl.Controls.Add(this.tabConnections);
             this.tabControl.Controls.Add(this.tabStationboard);
             this.tabControl.Controls.Add(this.tabMap);
-            this.tabControl.Controls.Add(this.tabMail);
             this.tabControl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl.Location = new System.Drawing.Point(12, 12);
             this.tabControl.Name = "tabControl";
@@ -98,7 +95,6 @@
             // 
             // tabConnections
             // 
-            this.tabConnections.Controls.Add(this.btnShare);
             this.tabConnections.Controls.Add(this.lbTo);
             this.tabConnections.Controls.Add(this.lbFrom);
             this.tabConnections.Controls.Add(this.labelConnection);
@@ -121,17 +117,6 @@
             this.tabConnections.Text = "Verbindungen";
             this.tabConnections.UseVisualStyleBackColor = true;
             this.tabConnections.Click += new System.EventHandler(this.closeLists);
-            // 
-            // btnShare
-            // 
-            this.btnShare.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnShare.Location = new System.Drawing.Point(600, 309);
-            this.btnShare.Name = "btnShare";
-            this.btnShare.Size = new System.Drawing.Size(141, 71);
-            this.btnShare.TabIndex = 14;
-            this.btnShare.Text = "Ausgewählte Verbindung teilen";
-            this.btnShare.UseVisualStyleBackColor = true;
-            this.btnShare.Click += new System.EventHandler(this.btnShare_Click);
             // 
             // lbTo
             // 
@@ -554,16 +539,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Ort:";
             // 
-            // tabMail
-            // 
-            this.tabMail.Location = new System.Drawing.Point(4, 30);
-            this.tabMail.Name = "tabMail";
-            this.tabMail.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMail.Size = new System.Drawing.Size(775, 771);
-            this.tabMail.TabIndex = 3;
-            this.tabMail.Text = "Verbindung teilen";
-            this.tabMail.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -631,7 +606,5 @@
         private GMap.NET.WindowsForms.GMapControl gmap;
         private Button btnCloseMap;
         private ListBox lbPlace;
-        private Button btnShare;
-        private TabPage tabMail;
     }
 }

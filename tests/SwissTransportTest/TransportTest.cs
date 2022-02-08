@@ -25,7 +25,7 @@
         [Fact]
         public void StationBoard()
         {
-            StationBoardRoot stationBoard = this.testee.GetStationBoard("Sursee", "8502007");
+            StationBoardRoot stationBoard = this.testee.GetStationBoard("Sursee");
 
             stationBoard.Should().NotBeNull();
         }
@@ -33,7 +33,7 @@
         [Fact]
         public void Connections()
         {
-            Connections connections = this.testee.GetConnections("Sursee", "Luzern");
+            Connections connections = this.testee.GetConnections("Sursee", "Luzern", "2022-02-08", "09:20");
 
             connections.Should().NotBeNull();
         }
