@@ -1,12 +1,9 @@
 using SwissTransport.Core;
 using SwissTransport.Models;
-using Windows.Devices.Geolocation;
 using GMap.NET;
 using GMap.NET.WindowsForms;
 using GMap.NET.WindowsForms.Markers;
 using GMap.NET.MapProviders;
-using System.Web;
-using System.Net.Mail;
 
 namespace FahrplanApp
 {
